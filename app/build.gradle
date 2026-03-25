@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+    
+}
+
+android {
+    namespace 'com.error.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.error.app'
+        minSdk 24
+        targetSdk 34
+        versionCode 20
+        versionName '1.0.4'
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(System.getenv('KEYSTORE_PATH') ?: 'keystore.jks')
+            storePassword System.getenv('KEYSTORE_PASSWORD') ?: 'tanvir'
+            keyAlias System.getenv('KEY_ALIAS') ?: 'tanvir_keys'
+            keyPassword System.getenv('KEY_PASSWORD') ?: 'tanvir'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.webkit:webkit:1.9.0'
+    implementation 'androidx.core:core:1.12.0'
+}
